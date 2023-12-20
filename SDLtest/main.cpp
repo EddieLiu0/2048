@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include "2048.hpp"
 using namespace std;
 
