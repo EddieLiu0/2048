@@ -1,14 +1,11 @@
-//
-//  main.cpp
-//  SDLtest
-//
-//  Created by Eddie Liu on 12/9/23.
-//
-
 #include <iostream>
+#include <stdlib.h>
+#include <string>
+#include "2048.hpp"
+using namespace std;
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
+
+int main(int argc, char* args[]) {
+    runGame();
     return 0;
 }
