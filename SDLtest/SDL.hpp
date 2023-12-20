@@ -16,7 +16,4 @@ bool init();
 bool loadMedia();
 // Frees media and shuts down SDL
 void close();
-// Loads individual image
-SDL_Surface* loadSurface(string path);
-SDL_Texture* loadTexture(string path);
 #endif /* SDL_hpp */
