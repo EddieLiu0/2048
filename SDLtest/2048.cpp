@@ -10,14 +10,13 @@ enum KeyPressSurfaces
     KEY_UP,
     KEY_DOWN,
     KEY_LEFT,
-    KEY_RIGHT,
-    KEY_TOTAL
+    KEY_RIGHT
 };
 
 SDL_Texture* gTexture[16] {};
 
 bool createTileTexture() {
-    // Load default
+    // Load font
     TTF_Font* font = TTF_OpenFont("new.ttf", 100);
     SDL_Color textColor = {0, 0, 0};
     SDL_Color backColor;
@@ -27,10 +26,11 @@ bool createTileTexture() {
         cout << "Unable to load font!" << endl;
         return false;
     } else {
-        
         for (int i = 1; i < 17; ++i) {
+            // set background color for different tile
             backColor = {(uint8_t)(rand() % 256),(uint8_t)(rand() % 256),(uint8_t)(rand() % 256)};
             string s = to_string((int)pow(2, i));
+            // pad the string to make the text on tile smaller
             if (s.length() < 4) {
                 s.insert(0, "  ");
                 s.append("  ");
@@ -72,7 +72,7 @@ bool gameOver(int* ary) {
     }
     return true;
 }
-
+// add n random tile
 void addRandom(int* ary, int n) {
     int randPos{rand() % 16};
     int randNum{};
@@ -172,6 +172,8 @@ bool update(int* ary, int key) {
                 }
             }
             break;
+        default:
+            break;
     }
     return updated;
 }
@@ -191,14 +193,11 @@ void runGame() {
             SDL_Rect ary[16];
             for (int i = 0; i < 4; ++i) {
                 for (int j = 0; j < 4; ++j) {
-                    // set the drawing area
+                    // set area of each tile
                     ary[i * 4 + j].x = 0 + j * SCREEN_WIDTH / 4;
                     ary[i * 4 + j].y = 0 + i * SCREEN_HEIGHT / 4;
                     ary[i * 4 + j].w = SCREEN_WIDTH / 4;
                     ary[i * 4 + j].h = SCREEN_HEIGHT / 4;
-                    
-                    // render the texture on the area
-                    // SDL_RenderCopy(gRenderer, gTexture[i], NULL, &ary[i * 4 + j]);
                 }
             }
             while (!quit) {
@@ -212,27 +211,23 @@ void runGame() {
                         } else {
                             switch ((e.key.keysym.sym)) {
                                 case SDLK_UP:
-                                    if (update(game, KEY_UP)) {
-                                        addRandom(game, 1);
-                                    }
+                                    dir = KEY_UP;
                                     break;
                                 case SDLK_DOWN:
-                                    if (update(game, KEY_DOWN)) {
-                                        addRandom(game, 1);
-                                    }
+                                    dir = KEY_DOWN;
                                     break;
                                 case SDLK_LEFT:
-                                    if (update(game, KEY_LEFT)) {
-                                        addRandom(game, 1);
-                                    }
+                                    dir = KEY_LEFT;
                                     break;
                                 case SDLK_RIGHT:
-                                    if (update(game, KEY_RIGHT)) {
-                                        addRandom(game, 1);
-                                    }
+                                    dir = KEY_RIGHT;
                                     break;
                                 default:
+                                    dir = KEY_DEFAULT;
                                     break;
+                            }
+                            if (update(game, dir)) {
+                                addRandom(game, 1);
                             }
                         }
                     }
