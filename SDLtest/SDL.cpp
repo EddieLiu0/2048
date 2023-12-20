@@ -5,9 +5,6 @@ const int SCREEN_HEIGHT = 600;
 // Declare global window, surface, image
 SDL_Window* gWindow = NULL;
 SDL_Renderer* gRenderer = NULL;
-SDL_Surface* gScreen = NULL;
-TTF_Font* gFont = NULL;
-// SDL_Texture* gTexture = NULL;
 
 bool init() {
     // Initialize SDL
@@ -20,14 +17,7 @@ bool init() {
         cout << "Warning: Linear texture filtering not enabled!" << endl;
         return false;
     }
-    
-    // initialize PNG loading
-    int imgFlags = IMG_INIT_PNG;
-    if (!(IMG_Init(imgFlags) & imgFlags)) {
-        cout << "SDL_image could not initialize! SDL_image Error: " << IMG_GetError() << endl;
-        return false;
-    }
-                
+               
     // initialize SDL_ttf
     if (TTF_Init() == -1) {
         cout << "SDL_ttf could not initialize! SDL_ttf Error: " << TTF_GetError() << endl;
@@ -54,12 +44,6 @@ bool init() {
     return true;
 }
 
-bool loadMedia() {
-    // Load default
-    
-    return true;
-}
-
 void close() {
     SDL_DestroyRenderer(gRenderer);
     gRenderer = NULL;
@@ -69,42 +53,5 @@ void close() {
     gWindow = NULL;
     
     //Quit SDL subsystems
-    IMG_Quit();
     SDL_Quit();
 }
-
-SDL_Surface* loadSurface(string path) {
-    // Final image
-    SDL_Surface* optimizedSurface = NULL;
-    // Load temp image
-    SDL_Surface* loadedSurface = IMG_Load(path.c_str());
-    if (loadedSurface == NULL) {
-        cout << "Unable to load image " << path.c_str() << "! SDL Error: " << SDL_GetError() << endl;
-    } else {
-        // Convert image to screen format
-        //optimizedSurface = SDL_ConvertSurface(loadedSurface, gScreenSurface->format, 0);
-        //if (optimizedSurface == NULL) {
-        //    cout << "Unable to optimize image " << path.c_str() << "! SDL Error: " << SDL_GetError() << endl;
-        //}
-        // Remove temp image
-        SDL_FreeSurface(loadedSurface);
-    }
-    return optimizedSurface;
-}
-
-/*
-SDL_Texture* loadTexture(string path) {
-    SDL_Texture* newTexture = NULL;
-    SDL_Surface* loadedSurface = IMG_Load(path.c_str());
-    if (loadedSurface == NULL) {
-        cout << "Unable to load image " << path.c_str() << "! SDL_image Error: " << IMG_GetError() << endl;
-    } else {
-        newTexture = SDL_CreateTextureFromSurface(gRenderer, loadedSurface);
-        if (newTexture == NULL) {
-            cout << "Unable to create texture from " << path.c_str() << "! SDL Error: %s\n" << SDL_GetError() << endl;
-        }
-        SDL_FreeSurface(loadedSurface);
-    }
-    return newTexture;
-}
-*/
