@@ -1,15 +1,11 @@
 #ifndef SDL_hpp
 #define SDL_hpp
 
-#include <stdio.h>
-#include <stdlib.h>
 #include <string>
 #include <math.h>
 #include <iostream>
 #include <SDL2/SDL.h>
-#include <SDL2_image/SDL_image.h>
 #include <SDL2_ttf/SDL_ttf.h>
-#include <SDL2_mixer/SDL_mixer.h>
 using namespace std;
 extern const int SCREEN_WIDTH;
 extern const int SCREEN_HEIGHT;
